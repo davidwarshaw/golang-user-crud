@@ -1,0 +1,9 @@
+{
+	"user_name": "user2",
+	"password": "secret2min8chars",
+	"first_name": "John",
+	"middle_name": "",
+	"last_name": "Doe",
+	"email": "user2@test.com",
+	"primary_phone_number": "555-555-5678"
+}

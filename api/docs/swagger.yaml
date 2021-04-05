@@ -1,0 +1,139 @@
+definitions:
+  models.UserIncoming:
+    properties:
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      middle_name:
+        type: string
+      password:
+        type: string
+      primary_phone_number:
+        type: string
+      user_name:
+        type: string
+    required:
+    - password
+    - user_name
+    type: object
+  models.UserOutgoing:
+    properties:
+      email:
+        type: string
+      first_name:
+        type: string
+      id:
+        type: integer
+      last_name:
+        type: string
+      middle_name:
+        type: string
+      primary_phone_number:
+        type: string
+      user_name:
+        type: string
+    required:
+    - user_name
+    type: object
+info:
+  contact: {}
+paths:
+  /users:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 'default: 1'
+        in: query
+        name: page
+        type: integer
+      - description: 'default: 20'
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: The user entities
+          schema:
+            items:
+              $ref: '#/definitions/models.UserOutgoing'
+            type: array
+      summary: Retrieve all users
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: The user data to be created
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserIncoming'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: body
+      summary: Create a user
+  /users/:id:
+    delete:
+      parameters:
+      - description: The id of the user to be deleted
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+      summary: Delete a user by id
+    get:
+      parameters:
+      - description: The id of the user to be retrieved
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: The user entity for that id
+          schema:
+            $ref: '#/definitions/models.UserOutgoing'
+      summary: Retrieve a user by id
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: The id of the user to be updated
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: The user data to be updated
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserIncoming'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: The updated user entity for that id
+          schema:
+            $ref: '#/definitions/models.UserOutgoing'
+      summary: Update a user by id
+swagger: "2.0"

@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - postgresdata-test:/var/lib/postgresql/data
+      - ./db/sql:/docker-entrypoint-initdb.d
+
+  api-test:
+    build: api
+    depends_on:
+      - db
+    command: ["go", "test", "./test"]
+    ports:
+      - 3000:3000
+    volumes:
+      - ./api:/app
+
+volumes:  
+  postgresdata-test:
