@@ -17,4 +17,4 @@ Stop service and drop the database:
 
     docker-compose down -v
 
-Swagger Docs for the service: [http://localhost:3000/swagger/index.html
+Swagger Docs for the service: http://localhost:8080/swagger/index.html
